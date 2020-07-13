@@ -1,0 +1,12 @@
+.DS_Store
+*.pyc
+.scon*
+_build.*
+config.log
+/bin/
+tests/tmp*
+ups/*.cfgc
+.coverage
+.pytest_cache
+.idea
+
