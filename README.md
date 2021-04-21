@@ -13,23 +13,27 @@ For a guide to running the Rubin Science Pipelines with Docker, see:
 
 https://pipelines.lsst.io/install/docker.html
 
-A Docker file defines a single container. With docker-compose, multiple associated containers can 
-be associated. Also the configuration can be automated
+The Docker file defines a single container to run. With docker-compose multiple associated containers can 
+be associated and the configuration and setup is automated
 
 Usage
 -----
 
-A typical usage:
+Build the image from the Dockerfile.
 
-Defaults to w_latest if no LSST_TAG is passed
-* docker build -t leanne/lsst-stack . --build-arg LSST_TAG=d_latest
+ Default to the latest weekly tag if no tag is passed. 
+ * docker build -t leanne/lsst . 
+
+ Specify a TAG
+ * docker build -t leanne/lsst . --build-arg LSST_TAG=d_latest
 
 
-* Start the project 
-    * docker-compose up -d 
-    * docker ps
-* Show a list of containers for a service 
-    * docker-compose ps 
-* docker exec -it lsst-stack /bin/bash
-* docker attach lsst-stack
+Start the starts the container in the background (detached mode) and leave running. 
+* docker-compose up -d 
+    
+Connect to the running container with a bash shell
+* docker exec -it lsst /bin/bash -l
+
+
+Stops and remove the containers, networks, volumes, and images, etc
 * docker-compose down
