@@ -28,12 +28,11 @@ Usage
     * docker build -t leanne/lsst . --build-arg LSST_TAG=d_latest
 
 
-- Start the starts the container in the background (detached mode) and leave running. 
+Start the starts the container in the background (detached mode) and leave running. 
 * docker-compose up -d 
     
-- Connect to the running container with a bash shell
+Connect to the running container with a bash shell
 * docker exec -it lsst /bin/bash -l
 
-
-- Stop and remove the containers, networks, volumes, and images, etc
+Stop and remove the containers, networks, volumes, and images, etc
 * docker-compose down
