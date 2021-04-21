@@ -19,21 +19,21 @@ be associated and the configuration and setup is automated
 Usage
 -----
 
-Build the image from the Dockerfile.
+- Build the image from the Dockerfile.
 
- Default to the latest weekly tag if no tag is passed. 
- * docker build -t leanne/lsst . 
+    - Default to the latest weekly tag if no tag is passed. 
+    * docker build -t leanne/lsst . 
 
- Specify a TAG
- * docker build -t leanne/lsst . --build-arg LSST_TAG=d_latest
+     - Or specify a TAG explicitly
+    * docker build -t leanne/lsst . --build-arg LSST_TAG=d_latest
 
 
-Start the starts the container in the background (detached mode) and leave running. 
+- Start the starts the container in the background (detached mode) and leave running. 
 * docker-compose up -d 
     
-Connect to the running container with a bash shell
+- Connect to the running container with a bash shell
 * docker exec -it lsst /bin/bash -l
 
 
-Stops and remove the containers, networks, volumes, and images, etc
+- Stop and remove the containers, networks, volumes, and images, etc
 * docker-compose down
