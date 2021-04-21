@@ -36,3 +36,7 @@ Connect to the running container with a bash shell
 
 Stop and remove the containers, networks, volumes, and images, etc
 * docker-compose down
+
+Check that you are running the correct version of the stack 
+* > eups list -s | grep lsst_distrib
+* > eups list -s | grep faro
