@@ -24,7 +24,7 @@ Usage
     Default to the latest weekly tag if no tag is passed. 
     * docker build -t leanne/lsst . 
 
-     Or specify a TAG explicitly
+     Or specify a TAG explicitly, e.g 7-stack-lsst_distrib-w_2021_14, d_latest, w_latest
     * docker build -t leanne/lsst . --build-arg LSST_TAG=d_latest
 
 
