@@ -21,10 +21,10 @@ Usage
 
 - Build the image from the Dockerfile.
 
-    - Default to the latest weekly tag if no tag is passed. 
+    Default to the latest weekly tag if no tag is passed. 
     * docker build -t leanne/lsst . 
 
-     - Or specify a TAG explicitly
+     Or specify a TAG explicitly
     * docker build -t leanne/lsst . --build-arg LSST_TAG=d_latest
 
 
