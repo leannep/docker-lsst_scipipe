@@ -24,7 +24,7 @@ Usage
 -----
 
 - Build the image from the Dockerfile. Defaults to the latest weekly tag if no tag is passed.
-* docker build -t lsst-stack . 
+* docker build -t leanne/lsst . 
 
     To specify a TAG explicitly, e.g a given daily, weekly or release,  
     * docker build -t leanne/lsst . --build-arg TAG=d_latest
