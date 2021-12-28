@@ -14,7 +14,10 @@ For a guide to running the Rubin Science Pipelines with Docker, see:
 https://pipelines.lsst.io/install/docker.html
 
 The Docker file defines a single container to run. With docker-compose multiple associated containers can 
-be associated and the configuration and setup is automated
+be associated and the configuration and setup is automated. 
+
+An list of all available tage can be found at
+https://hub.docker.com/r/lsstsqre/centos/tags
 
 
 Usage
