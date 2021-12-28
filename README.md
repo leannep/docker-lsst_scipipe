@@ -16,18 +16,19 @@ https://pipelines.lsst.io/install/docker.html
 The Docker file defines a single container to run. With docker-compose multiple associated containers can 
 be associated and the configuration and setup is automated
 
+
 Usage
 -----
 
 - Build the image from the Dockerfile. Defaults to the latest weekly tag if no tag is passed.
-* docker build -t leanne/lsst . 
+* docker build -t lsst-stack . 
 
     To specify a TAG explicitly, e.g a given daily, weekly or release,  
-    * docker build -t leanne/lsst . --build-arg LSST_TAG=d_latest
-    Example options for LSST_TAG are: 
-      * specific weekly: 7-stack-lsst_distrib-w_2021_14,
-      * specific daily: 7-stack-lsst_distrib-d_2021_07_14
-      * specific release (22.0.1): 7-stack-lsst_distrib-v22_0_1 
+    * docker build -t leanne/lsst . --build-arg TAG=d_latest
+    Example options for TAG are: 
+      * specific weekly: w_2021_14,
+      * specific daily: d_2021_07_14
+      * specific release (22.0.1): v22_0_1, v_23_0_0
       * latest builds: d_latest, w_latest
     A full list of all available tags can be found at:
       * https://github.com/lsst/lsst_distrib/tags
@@ -42,14 +43,27 @@ Execute an interactive bash shell on the running container. -t (-tty) -i (--inte
 Stop and remove the containers, networks, volumes, and images, etc
 * docker compose down
 
+Setup apackage 
+> file:///Users/leanne/LSST/pycharm-workspace/faro/doc/_build/html/lsst.faro/using.html#lsst-faro-setting-up
+> 
+
 Check that you are running the correct version of the stack 
+* > source /software/lsstsw/stack/loadLSST.bash (done in docker)
+* > setup lsst_distrib
 * > eups list -s | grep lsst_distrib
 * > eups list -s | grep faro
 
 To setup a local package 
 * > cd /mnt/repos/<package>
 * > setup -k -r .
+* > echo $FARO_DIR
   
+
+To setup local datasets for testing (https://pipelines.lsst.
+io/v/daily/getting-started/data-setup.html#downloading-the-sample-hsc-data)
+* > cd /mnt/datasets/<dataset>
+* > setup -j -r .
+* > echo $RC2_SUBSET_DIR
 
 LSST Science Pipelines tags
 ---------------------------
@@ -60,3 +74,14 @@ Tags are formatted as:
   * --build-arg LSST_TAG=w_latest   # Current Weekly
   * --build-arg LSST_TAG=7-stack-lsst_distrib-w_2021_17  # Weekly 17
   
+Check the version of the stack 
+------------------------------
+
+Remove Docker containers
+------------------------
+* > docker ps : List all containers, running and stopped 
+* > docker CONTAINER_ID : Stop the container with given ID
+* > docker stop CONTAINER_ID | xargs docker rm
+* > docker rm -f 
+* > docker rm -f $(docker ps -a -q) : Remove all containers quietly
+* > docker rmi $(docker images -q) : Remove all images quietly

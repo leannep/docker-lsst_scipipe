@@ -1,20 +1,18 @@
-version: '3.7'
+version: '3'
 services:
-  
-  # The LSST software stack, created from the latest weekly image pulled from the registry
   lsst:
     container_name: lsst
-    #image: lsstsqre/centos:w_latest
-    image: leanne/lsst
+    image: leanne/lsst-stack
     restart: unless-stopped
     volumes:
       - type: bind
         source: /Users/leanne/LSST/pycharm-workspace
         target: /mnt/repos
         read_only: false
-      - /Users/leanne/Datasets:/mnt/datasets
-      
-    # command: python ./env_lsst.py
+      - type: bind
+        source: /Users/leanne/Datasets
+        target: /mnt/datasets
+        read_only: false
+
     tty: true
     stdin_open: true
-    
