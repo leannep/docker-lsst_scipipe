@@ -24,10 +24,10 @@ Usage
 -----
 
 - Build the image from the Dockerfile. Defaults to the latest weekly tag if no tag is passed.
-* docker build -t leanne/lsst . 
+* docker build -t leanne/lsst-stack . 
 
     To specify a TAG explicitly, e.g a given daily, weekly or release,  
-    * docker build -t leanne/lsst . --build-arg TAG=d_latest
+    * docker build -t leanne/lsst-stack . --build-arg TAG=d_latest
     Example options for TAG are: 
       * specific weekly: w_2021_14,
       * specific daily: d_2021_07_14
@@ -79,7 +79,24 @@ Tags are formatted as:
   
 Check the version of the stack 
 ------------------------------
+> eups list | grep lsst_distrib
+ This should correspond to the tag that was passed to docker build (or 
+> w_latest if no tag)
 
+Configure PyCharm to use the interpreter in the Docker image
+------------------------------------------------------------
+Find the path to the python executabele 
+lsst-scipipe-0.7.0 > type python
+
+Configuring pycharm: 
+Everythng that goes into the Docker files as RIN ENV appears in the pycharn 
+interpreter list of paths
+
+
+Using the Makefile 
+------------------
+* build: make build ; make build TAG=w_2021_52
+* 
 Remove Docker containers
 ------------------------
 * > docker ps : List all containers, running and stopped 
@@ -88,3 +105,12 @@ Remove Docker containers
 * > docker rm -f 
 * > docker rm -f $(docker ps -a -q) : Remove all containers quietly
 * > docker rmi $(docker images -q) : Remove all images quietly
+  > 
+
+# Note : 17:51 backup 2 Jan 2022
+
+----
+Image (leanne/lsst-stack) is not runnable without a ENTRYPOINT nor CMD 
+- set this to run the LSST setup 
+docker run leanne/lsst-stack  - gives nothing with no setting 
+- 

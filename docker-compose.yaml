@@ -3,16 +3,12 @@ services:
   lsst:
     container_name: lsst
     image: leanne/lsst-stack
+    env_file:
+      - ./lsst.env
     restart: unless-stopped
-    volumes:
-      - type: bind
-        source: /Users/leanne/LSST/pycharm-workspace
-        target: /mnt/repos
-        read_only: false
-      - type: bind
-        source: /Users/leanne/Datasets
-        target: /mnt/datasets
-        read_only: false
-
     tty: true
     stdin_open: true
+    volumes:
+      - "${HOME}/LSST/pycharm-workspace:/mnt/repos:rw"
+      - "${HOME}/Datasets:/mnt/datasets:rw"
+

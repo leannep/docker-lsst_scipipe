@@ -7,26 +7,25 @@ ARG LSST_TAG=${CENTOS_VER}-stack-${PRODUCT}-${TAG}
 FROM lsstsqre/centos:${LSST_TAG}
 
 LABEL MAINTAINER="Leanne Guy <leanne@lsst.org>"
-LABEL DESCRIPTION="Docker file for lsst-stack images"
+LABEL DESCRIPTION="Docker file to pull and setup lsst-stack images"
 
 ARG LSST_TAG
+ENV LSST_TAG ${LSST_TAG}
 ARG LSST_USER=lsst
 ARG HOME_DIR=/home/lsst
 ARG BIN_DIR=${HOME_DIR}/bin
-ENV LSST_TAG ${LSST_TAG}
+USER $LSST_USER
 
 # Setup the LSST environment
-USER $LSST_USER
+COPY source_lsst.sh /etc/profile.d
 WORKDIR $HOME_DIR
-RUN mkdir -p ${BIN_DIR}
+RUN mkdir -p $BIN_DIR
+COPY ./env_lsst.py $BIN_DIR
+COPY ./setup_lsst.sh $BIN_DIR
 
-WORKDIR $BIN_DIR
-COPY ./source_lsst.sh .
-COPY ./env_lsst.py .
-RUN ["/bin/bash","-c", "./source_lsst.sh > source_lsst"]
-RUN touch ${HOME_DIR}/.bashrc && \
-    cat source_lsst >> ${HOME_DIR}/.bashrc  && \
-    rm source_lsst
-RUN python env_lsst.py --filename ${HOME_DIR}/lsst.env
+# Update .bashrc to activate the lsst environment on login (maybe not needed with /etc/profile.d above)
+RUN ["/bin/bash","-c", "/home/lsst/bin/setup_lsst.sh >>  /home/lsst/.bashrc"]
+RUN chmod 755 /home/lsst/.bashrc
 
-WORKDIR $HOME_DIR
+# Extract the LSST env variables
+RUN python bin/env_lsst.py --filename $HOME_DIR/lsst.env
