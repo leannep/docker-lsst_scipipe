@@ -1,14 +1,12 @@
-version: '3'
+version: '3.9'
 services:
   lsst:
     container_name: lsst
     image: leanne/lsst-stack
-    env_file:
-      - ./lsst.env
+    env_file: lsst.env
     restart: unless-stopped
     tty: true
     stdin_open: true
     volumes:
       - "${HOME}/LSST/pycharm-workspace:/mnt/repos:rw"
       - "${HOME}/Datasets:/mnt/datasets:rw"
-
