@@ -1,5 +1,5 @@
 # https://itnext.io/docker-makefile-x-ops-sharing-infra-as-code-parts-ea6fa0d22946
-PROJECT = docker-scipipe
+PROJECT = docker-lsst_scipipe
 
 # Note. If you change this, you also need to update docker-compose.yml
 SERVICE := lsst
@@ -21,17 +21,21 @@ DOCKER_VOLUME_LIST := $(shell docker volume ls -q)
 
 all: service shell
 
-service: build env-file up
+service: build up
 
 build:
 	# Build the LSST image from the Docker file (--progress=plain)
-	docker build --no-cache  -t leanne/lsst-stack .	--build-arg TAG=$(TAG)
+	docker build --no-cache  -t leanne/lsst-stack  -f ./Dockerfile . --build-arg TAG=$(TAG)
+
+run-shell:
+	# Default CMD is for a login shell
+	docker run -it leanne/lsst-stack
 
 env-file:
 	# copy the lsst.env file
 	docker run --rm -v `pwd`:/app leanne/lsst-stack /bin/cp /home/lsst/lsst.env /app
 
-up:
+up: env-file
 	# run a detached container
 	docker compose --env-file ./lsst.env up -d
 
